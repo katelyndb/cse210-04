@@ -1,3 +1,6 @@
+import random
+from game.shared.point import Point
+
 class Director:
     """A person who directs the game. 
     
@@ -57,9 +60,24 @@ class Director:
         robot.move_next(max_x, max_y)
         
         for artifact in artifacts:
-            if robot.get_position().equals(artifact.get_position()):
+            artifact.move_next(max_x, max_y)
+
+            # Find the difference between artifact and robot.
+            delta = artifact.get_position().subtract(robot.get_position())
+
+            # If the difference between and artifact and robot is less than 25,
+            # restart it at a random place at the top of the game screen.
+            if abs(delta.get_x()) < 25 and abs(delta.get_y()) < 25:
+                artifact.set_position(Point(random.randint(1, self._video_service.get_width()), 0))
                 message = artifact.get_message()
-                banner.set_text(message)    
+                banner.set_text(message) 
+
+            # If the artifact makes it to the bottom of the screen, assign it to a new random 
+            # position at the top of the screen.
+            if robot.get_position().equals(artifact.get_position()):
+                artifact.set_position(Point(random.randint(1, self._video_service.get_width()), 0))
+                
+                   
         
     def _do_outputs(self, cast):
         """Draws the actors on the screen.
