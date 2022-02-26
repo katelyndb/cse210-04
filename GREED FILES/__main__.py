@@ -61,7 +61,7 @@ def main():
         list = ["*", "o"]
         text = random.choice(list)
         message = messages[n]
-
+        
         x = random.randint(1, COLS - 1)
         y = 0
         position = Point(x, y)

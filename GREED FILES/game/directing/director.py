@@ -27,6 +27,9 @@ class Director:
         Args:
             cast (Cast): The cast of actors.
         """
+        # I created the score here.
+        self.score = 0
+
         self._video_service.open_window()
         while self._video_service.is_window_open():
             self._get_inputs(cast)
@@ -58,7 +61,7 @@ class Director:
         max_x = self._video_service.get_width()
         max_y = self._video_service.get_height()
         robot.move_next(max_x, max_y)
-        
+
         for artifact in artifacts:
             artifact.move_next(max_x, max_y)
 
@@ -67,10 +70,14 @@ class Director:
 
             # If the difference between and artifact and robot is less than 25,
             # restart it at a random place at the top of the game screen.
+            message = f"Score - {self.score}"
+            banner.set_text(message)
             if abs(delta.get_x()) < 25 and abs(delta.get_y()) < 25:
                 artifact.set_position(Point(random.randint(1, self._video_service.get_width()), 0))
-                message = artifact.get_message()
-                banner.set_text(message) 
+                if artifact._text == "*":
+                    self.score += 1
+                if artifact._text == "o":
+                    self.score -= 1
 
             # If the artifact makes it to the bottom of the screen, assign it to a new random 
             # position at the top of the screen.
