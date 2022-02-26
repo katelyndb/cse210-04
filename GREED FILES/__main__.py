@@ -53,14 +53,9 @@ def main():
     cast.add_actor("robots", robot)
     
     # create the artifacts
-    with open(DATA_PATH) as file:
-        data = file.read()             # We won't need this once we have the points displayed at the top of the screen
-        messages = data.splitlines()
-
     for n in range(DEFAULT_ARTIFACTS):
         list = ["*", "o"]
         text = random.choice(list)
-        message = messages[n]
         
         x = random.randint(1, COLS - 1)
         y = 0
@@ -77,7 +72,6 @@ def main():
         artifact.set_font_size(FONT_SIZE)
         artifact.set_color(color)
         artifact.set_position(position)
-        artifact.set_message(message)
         artifact.set_velocity(Point(0, random.randint(2,7)))
         cast.add_actor("artifacts", artifact)
     

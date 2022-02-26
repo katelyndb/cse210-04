@@ -70,10 +70,15 @@ class Director:
 
             # If the difference between and artifact and robot is less than 25,
             # restart it at a random place at the top of the game screen.
-            message = f"Score - {self.score}"
+
+            # Displays score on top of the screen
+            message = f"Score: {self.score}"
             banner.set_text(message)
+
+            # Detect collisions
             if abs(delta.get_x()) < 25 and abs(delta.get_y()) < 25:
                 artifact.set_position(Point(random.randint(1, self._video_service.get_width()), 0))
+                # Update score based upon being a gem or rock
                 if artifact._text == "*":
                     self.score += 1
                 if artifact._text == "o":
