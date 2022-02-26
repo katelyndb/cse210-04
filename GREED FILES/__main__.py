@@ -24,7 +24,7 @@ ROWS = 40
 CAPTION = "Greed"
 DATA_PATH = os.path.dirname(os.path.abspath(__file__)) + "/data/messages.txt"
 WHITE = Color(255, 255, 255)
-DEFAULT_ARTIFACTS = random.randint(8, 15)
+DEFAULT_ARTIFACTS = random.randint(10, 20)
 
 
 def main():
@@ -72,7 +72,7 @@ def main():
         artifact.set_font_size(FONT_SIZE)
         artifact.set_color(color)
         artifact.set_position(position)
-        artifact.set_velocity(Point(0, random.randint(2,7)))
+        artifact.set_velocity(Point(0, random.randint(2,10)))
         cast.add_actor("artifacts", artifact)
     
     # start the game
